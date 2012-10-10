@@ -5,3 +5,6 @@ build
 .project
 .settings
 .env
+.idea
+*.iml
+*.swp
