@@ -13,11 +13,13 @@ import java.util.TimeZone;
 @Produces(MediaType.APPLICATION_JSON)
 public class TimeService {
 
-    @GET
-    @Path("/{timezone}")
-    public Time get(@PathParam("timezone") String timezone) {
-        return new Time(TimeZone.getTimeZone(timezone.toUpperCase()));
-    }
+  @GET
+  @Path("/{timezone}")
+  public Time get(@PathParam("timezone") String timezone) {
+
+    return new Time(TimeZone.getTimeZone(timezone.toUpperCase()));
+  }
+
 
 }
 
