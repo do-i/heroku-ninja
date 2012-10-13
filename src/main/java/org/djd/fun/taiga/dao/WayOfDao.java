@@ -21,7 +21,6 @@ import java.util.List;
  */
 public class WayOfDao {
 
-
   public void deleteAll() throws DaoException {
     Connection connection = getConnection();
     try {
@@ -30,6 +29,13 @@ public class WayOfDao {
       stmt.executeUpdate("CREATE TABLE logs ( id SERIAL, log TEXT)");
     } catch (SQLException e) {
       throw new DaoException(e);
+    } finally {
+      try {
+        if (connection != null)
+          connection.close();
+      } catch (SQLException e) {
+        throw new DaoException(e);
+      }
     }
   }
 
@@ -42,10 +48,28 @@ public class WayOfDao {
       throw new DaoException(e);
     } finally {
       try {
-        if(connection != null)
-        connection.close();
+        if (connection != null)
+          connection.close();
       } catch (SQLException e) {
+        throw new DaoException(e);
+      }
+    }
+  }
 
+  public int update(int id, SomeData someData) throws DaoException {
+    Connection connection = getConnection();
+    try {
+      Statement stmt = connection.createStatement();
+      return stmt.executeUpdate(String.format("UPDATE logs SET log='%s' WHERE id=%d",
+          someData.getContent(), someData.getId()));
+    } catch (SQLException e) {
+      throw new DaoException(e);
+    } finally {
+      try {
+        if (connection != null)
+          connection.close();
+      } catch (SQLException e) {
+        throw new DaoException(e);
       }
     }
   }
@@ -61,10 +85,16 @@ public class WayOfDao {
       }
     } catch (SQLException e) {
       throw new DaoException(e);
+    } finally {
+      try {
+        if (connection != null)
+          connection.close();
+      } catch (SQLException e) {
+        throw new DaoException(e);
+      }
     }
     return result;
   }
-
 
   private Connection getConnection() throws DaoException {
     try {
@@ -80,5 +110,4 @@ public class WayOfDao {
       throw new DaoException(e);
     }
   }
-
 }
