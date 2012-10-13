@@ -37,7 +37,7 @@ public class WayOfDao {
     Connection connection = getConnection();
     try {
       Statement stmt = connection.createStatement();
-      return stmt.executeUpdate(String.format("INSERT INTO logs(id, log) VALUES (DEFAULT, '%s') returning id", logText));
+      return stmt.executeUpdate(String.format("INSERT INTO logs(id, log) VALUES (DEFAULT, '%s')", logText));
     } catch (SQLException e) {
       throw new DaoException(e);
     } finally {
