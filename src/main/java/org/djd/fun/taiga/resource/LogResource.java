@@ -55,6 +55,7 @@ public class LogResource {
       int id = new WayOfDao().add(somedata);
       return JResponse.created(UriBuilder.fromPath("/" + id).build()).build();
     } catch (DaoException e) {
+      e.printStackTrace();
       throw new WebApplicationException(500);
     }
   }
