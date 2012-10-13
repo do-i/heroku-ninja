@@ -27,19 +27,26 @@ public class WayOfDao {
     try {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DROP TABLE IF EXISTS logs");
-      stmt.executeUpdate("CREATE TABLE logs (log TEXT, id SERIAL)");
+      stmt.executeUpdate("CREATE TABLE logs ( id SERIAL, log TEXT)");
     } catch (SQLException e) {
       throw new DaoException(e);
     }
   }
 
-  public void add(String logText) throws DaoException {
+  public int add(String logText) throws DaoException {
     Connection connection = getConnection();
     try {
       Statement stmt = connection.createStatement();
-      stmt.executeUpdate(String.format("INSERT INTO logs VALUES ('%s')", logText));
+      return stmt.executeUpdate(String.format("INSERT INTO logs(id, log) VALUES (DEFAULT, '%s') returning id", logText));
     } catch (SQLException e) {
       throw new DaoException(e);
+    } finally {
+      try {
+        if(connection != null)
+        connection.close();
+      } catch (SQLException e) {
+
+      }
     }
   }
 
