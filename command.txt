@@ -1,0 +1,18 @@
+heroku pg:info
+heroku pg:info HEROKU_POSTGRESQL_ROSE_URL
+heroku pg:promote HEROKU_POSTGRESQL_ROSE_URL
+heroku pg:psql HEROKU_POSTGRESQL_ROSE_URL
+heroku config
+
+# deploy to heroku
+git push heroku
+
+
+play new
+play run play-world
+
+
+  461  git remote add origin git@github.com:do-i/heroku-ninja.git
+  462  git remote show 
+  463  git branch 
+  464  git push origin master

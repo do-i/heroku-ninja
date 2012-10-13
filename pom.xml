@@ -33,6 +33,13 @@
             <version>1.9</version>
         </dependency>
 
+        <!-- Postgresql -->
+        <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>9.0-801.jdbc4</version>
+        </dependency>
+
         <!-- jUnit -->
         <dependency>
             <groupId>junit</groupId>
