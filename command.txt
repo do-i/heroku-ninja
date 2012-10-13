@@ -3,6 +3,7 @@ heroku pg:info HEROKU_POSTGRESQL_ROSE_URL
 heroku pg:promote HEROKU_POSTGRESQL_ROSE_URL
 heroku pg:psql HEROKU_POSTGRESQL_ROSE_URL
 heroku config
+heroku logs
 
 # deploy to heroku
 git push heroku

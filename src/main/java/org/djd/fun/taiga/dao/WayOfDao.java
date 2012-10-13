@@ -27,7 +27,7 @@ public class WayOfDao {
     try {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DROP TABLE IF EXISTS logs");
-      stmt.executeUpdate("CREATE TABLE logs (id INTEGER PRIMARY KEY DEFAULT NEXTVAL('serial'), log TEXT)");
+      stmt.executeUpdate("CREATE TABLE logs (id BIGSERIAL PRIMARY KEY, log TEXT)");
     } catch (SQLException e) {
       throw new DaoException(e);
     }
