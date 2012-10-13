@@ -23,15 +23,16 @@ import java.util.TimeZone;
 public class LogResource {
 
   @POST
-  public JResponse create() {
-    return delete();
+  public void create() {
+    delete();
   }
 
   @DELETE
-  public JResponse delete() {
+  public void delete() {
     try {
       new WayOfDao().deleteAll();
-      return JResponse.created(UriBuilder.fromPath("/").build()).build();
+      // this breaks application.wadl
+      // return JResponse.created(UriBuilder.fromPath("/").build()).build();
     } catch (DaoException e) {
       e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
       throw new WebApplicationException(500);
@@ -50,13 +51,14 @@ public class LogResource {
 
   @POST
   @Path("/{somedata}")
-  public JResponse add(@PathParam("somedata") String somedata) {
+  public void add(@PathParam("somedata") String somedata) {
     try {
       int id = new WayOfDao().add(somedata);
-      if(id != 1){
+      if (id != 1) {
         throw new WebApplicationException(400);
       }
-      return JResponse.created(UriBuilder.fromPath("/").build()).build();
+      // this breaks application.wadl
+      // return JResponse.created(UriBuilder.fromPath("/").build()).build();
     } catch (DaoException e) {
       e.printStackTrace();
       throw new WebApplicationException(500);
