@@ -17,3 +17,6 @@ play run play-world
   462  git remote show 
   463  git branch 
   464  git push origin master
+
+curl -si -XPUT -HContent-Type:application/json http://shielded-taiga-4473.herokuapp.com/v1/logs/1 -d '{"id":1,"content":"Advanced Ninja"}'
+curl -si -XGET -HContent-Type:application/json http://shielded-taiga-4473.herokuapp.com/v1/logs  

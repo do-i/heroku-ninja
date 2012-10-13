@@ -79,7 +79,7 @@ public class WayOfDao {
     Connection connection = getConnection();
     try {
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT id, log FROM logs");
+      ResultSet rs = stmt.executeQuery("SELECT id, log FROM logs ORDER BY id ASC");
       while (rs.next()) {
         result.add(new SomeData(rs.getInt("id"), rs.getString("log")));
       }
