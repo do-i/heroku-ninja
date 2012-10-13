@@ -53,7 +53,10 @@ public class LogResource {
   public JResponse add(@PathParam("somedata") String somedata) {
     try {
       int id = new WayOfDao().add(somedata);
-      return JResponse.created(UriBuilder.fromPath("/" + id).build()).build();
+      if(id != 1){
+        throw new WebApplicationException(400);
+      }
+      return JResponse.created(UriBuilder.fromPath("/").build()).build();
     } catch (DaoException e) {
       e.printStackTrace();
       throw new WebApplicationException(500);
