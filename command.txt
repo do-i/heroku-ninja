@@ -18,5 +18,13 @@ play run play-world
   463  git branch 
   464  git push origin master
 
+# HEROKU
+curl -si -XPOST -HContent-Type:application/json http://shielded-taiga-4473.herokuapp.com/v1/logs  
 curl -si -XPUT -HContent-Type:application/json http://shielded-taiga-4473.herokuapp.com/v1/logs/1 -d '{"id":1,"content":"Advanced Ninja"}'
 curl -si -XGET -HContent-Type:application/json http://shielded-taiga-4473.herokuapp.com/v1/logs  
+
+# LOCALHOST
+curl -si -XPOST -HContent-Type:application/json localhost:8080/v1/logs  
+curl -si -XPOST -HContent-Type:application/json localhost:8080/v1/logs/Basic%20Ninja
+curl -si -XPUT -HContent-Type:application/json  localhost:8080/v1/logs/1 -d '{"id":1,"content":"Advanced Ninja"}'
+curl -si -XGET -HContent-Type:application/json  localhost:8080/v1/logs  

@@ -1,0 +1,5 @@
+STOP_ID,DIRECTION_ID,STOP_NAME,LON,LAT,STATION_NAME,STATION_DESCRIPTIVE_NAME,PARENT_STOP_ID,ADA,Red,Blue,Brn,G,P,Pexp,Y,Pink,Org
+30089,S,95th/Dan Ryan (95th-bound),-87.624342,41.722377,95th/Dan Ryan,95th/Dan Ryan (Red Line),40450,1,1,0,0,0,0,0,0,0,0
+30088,N,95th/Dan Ryan (Howard-bound),-87.624342,41.722377,95th/Ran Ryan,95th/Ran Ryan (Red Line),40450,1,1,0,0,0,0,0,0,0,0
+30132,S,Adams/Wabash (Inner Loop),-87.626037,41.879507,Adams/Wabash,"Adams/Wabash (Brown, Green, Orange, Pink & Purple Lines)",40680,0,0,0,0,1,0,1,0,1,1
+30131,N,Adams/Wabash (Outer Loop),-87.626037,41.879507,Adams/Wabash,"Adams/Wabash (Brown, Green, Orange, Pink & Purple Lines)",40680,0,0,0,1,1,0,0,0,0,0

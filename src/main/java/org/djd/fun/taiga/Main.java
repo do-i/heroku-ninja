@@ -10,39 +10,33 @@ import org.eclipse.jetty.webapp.WebAppContext;
  */
 public class Main {
 
-  /**
-   * @param args
-   */
+  private static final String DEFAULT_PORT = "8080";
+  private static final String CONTEXT_PATH = "/";
+  private static final String WEBAPP_DIR_LOCATION = "src/main/webapp/";
+  private static final String WEB_INF_WEB_XML = WEBAPP_DIR_LOCATION + "WEB-INF/web.xml";
+
   public static void main(String[] args) throws Exception {
-//    throw new UnsupportedOperationException("Does Heroku need this bootstrap?");
-
-    String webappDirLocation = "src/main/webapp/";
-
-    // The port that we should run on can be set into an environment variable
-    // Look for that variable and default to 8080 if it isn't there.
-    String webPort = System.getenv("PORT");
-    if (webPort == null || webPort.isEmpty()) {
-      webPort = "8080";
-    }
-
-    Server server = new Server(Integer.valueOf(webPort));
-    WebAppContext root = new WebAppContext();
-
-    root.setContextPath("/");
-    root.setDescriptor(webappDirLocation + "/WEB-INF/web.xml");
-    root.setResourceBase(webappDirLocation);
-
-    // Parent loader priority is a class loader setting that Jetty accepts.
-    // By default Jetty will behave like most web containers in that it will
-    // allow your application to replace non-server libraries that are part of the
-    // container. Setting parent loader priority to true changes this behavior.
-    // Read more here: http://wiki.eclipse.org/Jetty/Reference/Jetty_Classloading
-    root.setParentLoaderPriority(true);
-
-    server.setHandler(root);
-
+    Server server = server();
+    server.setHandler(webAppContext());
     server.start();
     server.join();
   }
 
+  private static Server server() {
+    String port = System.getenv("PORT");
+    if (port == null || port.isEmpty()) {
+      port = DEFAULT_PORT;
+    }
+    return new Server(Integer.valueOf(port));
+  }
+
+  private static WebAppContext webAppContext() {
+    WebAppContext root = new WebAppContext();
+    root.setContextPath(CONTEXT_PATH);
+    root.setResourceBase(WEBAPP_DIR_LOCATION);
+    root.setDescriptor(WEB_INF_WEB_XML);
+    root.setParentLoaderPriority(true);
+    return root;
+  }
 }
+

@@ -1,5 +1,6 @@
 package org.djd.fun.taiga.dao;
 
+import org.djd.fun.taiga.dao.util.ConnectionUtil;
 import org.djd.fun.taiga.model.SomeData;
 
 import java.net.URI;
@@ -21,8 +22,22 @@ import java.util.List;
  */
 public class WayOfDao {
 
+  private ConnectionUtil connectionUtil;
+
+  public WayOfDao() {
+    this(new ConnectionUtil());
+  }
+
+  /**
+   * TODO use Guice injection
+   * @param connectionUtil
+   */
+  public WayOfDao(ConnectionUtil connectionUtil) {
+    this.connectionUtil = connectionUtil;
+  }
+
   public void deleteAll() throws DaoException {
-    Connection connection = getConnection();
+    Connection connection = connectionUtil.getConnection();
     try {
       Statement stmt = connection.createStatement();
       stmt.executeUpdate("DROP TABLE IF EXISTS logs");
@@ -40,7 +55,7 @@ public class WayOfDao {
   }
 
   public int add(String logText) throws DaoException {
-    Connection connection = getConnection();
+    Connection connection = connectionUtil.getConnection();
     try {
       Statement stmt = connection.createStatement();
       return stmt.executeUpdate(String.format("INSERT INTO logs(id, log) VALUES (DEFAULT, '%s')", logText));
@@ -57,7 +72,7 @@ public class WayOfDao {
   }
 
   public int update(int id, SomeData someData) throws DaoException {
-    Connection connection = getConnection();
+    Connection connection = connectionUtil.getConnection();
     try {
       Statement stmt = connection.createStatement();
       return stmt.executeUpdate(String.format("UPDATE logs SET log='%s' WHERE id=%d",
@@ -76,7 +91,7 @@ public class WayOfDao {
 
   public List<SomeData> getAll() throws DaoException {
     List<SomeData> result = new ArrayList<SomeData>();
-    Connection connection = getConnection();
+    Connection connection = connectionUtil.getConnection();
     try {
       Statement stmt = connection.createStatement();
       ResultSet rs = stmt.executeQuery("SELECT id, log FROM logs ORDER BY id ASC");
@@ -94,20 +109,5 @@ public class WayOfDao {
       }
     }
     return result;
-  }
-
-  private Connection getConnection() throws DaoException {
-    try {
-      URI dbUri = new URI(System.getenv("HEROKU_POSTGRESQL_ROSE_URL"));
-      String username = dbUri.getUserInfo().split(":")[0];
-      String password = dbUri.getUserInfo().split(":")[1];
-      String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + dbUri.getPath();
-
-      return DriverManager.getConnection(dbUrl, username, password);
-    } catch (SQLException e) {
-      throw new DaoException(e);
-    } catch (URISyntaxException e) {
-      throw new DaoException(e);
-    }
   }
 }
