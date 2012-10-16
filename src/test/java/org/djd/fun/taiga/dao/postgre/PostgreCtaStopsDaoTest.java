@@ -1,18 +1,19 @@
 package org.djd.fun.taiga.dao.postgre;
 
+import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableList;
 import org.djd.fun.taiga.dao.DaoException;
-import org.djd.fun.taiga.dao.util.ConnectionUtil;
 import org.djd.fun.taiga.model.CtaStopsModel;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
+ * TODO mock database using http://dbunit.sourceforge.net/
  * Created with IntelliJ IDEA.
  * User: acorn
  * Date: 10/14/12
@@ -21,26 +22,32 @@ import static org.junit.Assert.assertEquals;
  */
 public class PostgreCtaStopsDaoTest {
 
-  @Test public void createTable_noArg_success() throws DaoException {
-    PostgreCtaStopsDao postgreCtaStopsDao = new PostgreCtaStopsDao();
+  private PostgreCtaStopsDao postgreCtaStopsDao;
+
+  @Before
+  public void init() {
+    postgreCtaStopsDao = new PostgreCtaStopsDao();
+  }
+
+  @Test
+  public void createTable_noArg_success() throws DaoException {
     postgreCtaStopsDao.createTable();
   }
 
-  @Test public void insertAll_oneRow_success() throws DaoException {
-    PostgreCtaStopsDao postgreCtaStopsDao = new PostgreCtaStopsDao();
+  @Test
+  public void insertAll_oneRow_success() throws DaoException {
     postgreCtaStopsDao.createTable();
     postgreCtaStopsDao.insertAll(createModels());
   }
 
-  @Test public void selectAll_noArg_success() throws DaoException {
-    PostgreCtaStopsDao postgreCtaStopsDao = new PostgreCtaStopsDao();
+  @Test
+  public void selectAll_noArg_success() throws DaoException {
     postgreCtaStopsDao.createTable();
-    postgreCtaStopsDao.insertAll(createModels());
-    List<CtaStopsModel> ctaStopsModels = postgreCtaStopsDao.selectAll();
-    assertEquals(1, ctaStopsModels.size());
-
-    System.out.println(ctaStopsModels);
-
+    List<CtaStopsModel> ctaStopsModelsOriginal = createModels();
+    postgreCtaStopsDao.insertAll(ctaStopsModelsOriginal);
+    List<CtaStopsModel> ctaStopsModelsFetched = postgreCtaStopsDao.selectAll();
+    assertEquals(1, ctaStopsModelsFetched.size());
+    assertTrue(Objects.equal(ctaStopsModelsOriginal, ctaStopsModelsFetched));
   }
 
   private List<CtaStopsModel> createModels() {
@@ -65,5 +72,4 @@ public class PostgreCtaStopsDaoTest {
     ctaStopsModel.setOrange(0);
     return ImmutableList.of(ctaStopsModel);
   }
-
 }

@@ -1,5 +1,7 @@
 package org.djd.fun.taiga.model;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * Created with IntelliJ IDEA.
  * User: acorn
@@ -7,6 +9,7 @@ package org.djd.fun.taiga.model;
  * Time: 6:46 PM
  * TODO Use Builder pattern to make this a immutable model.
  */
+@XmlRootElement
 public class CtaStopsModel {
 
   private int stopId;             // STOP_ID
@@ -170,6 +173,67 @@ public class CtaStopsModel {
 
   public void setOrange(int orange) {
     this.orange = orange;
+  }
+
+  /**
+   * Intellij generated method.
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof CtaStopsModel)) return false;
+
+    CtaStopsModel that = (CtaStopsModel) o;
+
+    if (ada != that.ada) return false;
+    if (blue != that.blue) return false;
+    if (brn != that.brn) return false;
+    if (green != that.green) return false;
+    if (Float.compare(that.lat, lat) != 0) return false;
+    if (Float.compare(that.lon, lon) != 0) return false;
+    if (orange != that.orange) return false;
+    if (parentStopId != that.parentStopId) return false;
+    if (pink != that.pink) return false;
+    if (purple != that.purple) return false;
+    if (purpleExp != that.purpleExp) return false;
+    if (red != that.red) return false;
+    if (stopId != that.stopId) return false;
+    if (yellow != that.yellow) return false;
+    if (directionId != null ? !directionId.equals(that.directionId) : that.directionId != null)
+      return false;
+    if (stationDescName != null ? !stationDescName.equals(that.stationDescName) : that.stationDescName != null)
+      return false;
+    if (stationName != null ? !stationName.equals(that.stationName) : that.stationName != null)
+      return false;
+    if (stopName != null ? !stopName.equals(that.stopName) : that.stopName != null) return false;
+
+    return true;
+  }
+
+  /**
+   * Intellij generated method.
+   */
+  @Override
+  public int hashCode() {
+    int result = stopId;
+    result = 31 * result + (directionId != null ? directionId.hashCode() : 0);
+    result = 31 * result + (stopName != null ? stopName.hashCode() : 0);
+    result = 31 * result + (lon != +0.0f ? Float.floatToIntBits(lon) : 0);
+    result = 31 * result + (lat != +0.0f ? Float.floatToIntBits(lat) : 0);
+    result = 31 * result + (stationName != null ? stationName.hashCode() : 0);
+    result = 31 * result + (stationDescName != null ? stationDescName.hashCode() : 0);
+    result = 31 * result + parentStopId;
+    result = 31 * result + ada;
+    result = 31 * result + red;
+    result = 31 * result + blue;
+    result = 31 * result + brn;
+    result = 31 * result + green;
+    result = 31 * result + purple;
+    result = 31 * result + purpleExp;
+    result = 31 * result + yellow;
+    result = 31 * result + pink;
+    result = 31 * result + orange;
+    return result;
   }
 
   @Override
