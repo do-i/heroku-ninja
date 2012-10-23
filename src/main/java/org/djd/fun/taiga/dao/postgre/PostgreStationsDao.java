@@ -38,7 +38,7 @@ public class PostgreStationsDao {
           "VALUES (?,?,?,?,?)";
 
   private static final String SELECT_SQL =
-      "SELECT COLOR, DESTINATION, SEQUENCE, STOP_ID, STOP_NAME FROM CTA_L_STOPS";
+      "SELECT COLOR, DESTINATION, SEQUENCE, STOP_ID, STOP_NAME FROM CTA_STATIONS";
 
   private ConnectionUtil connectionUtil;
 

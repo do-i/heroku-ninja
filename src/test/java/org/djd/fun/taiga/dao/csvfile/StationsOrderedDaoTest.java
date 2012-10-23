@@ -22,9 +22,20 @@ public class StationsOrderedDaoTest {
 
   @Test
   public void loadFile_noArgs_success() throws IOException, DaoException {
-    List<StationsOrderedModel> stations = new StationsOrderedDao("sample/small_stations_sequence.csv").loadFile();
+    List<StationsOrderedModel> stations =
+        new StationsOrderedDao("sample/small_stations_sequence.csv").loadFile();
     assertNotNull(stations);
     assertEquals(26, stations.size());
-    System.out.print(stations);
+  }
+
+  @Test(expected = RuntimeException.class)
+  public void loadFile_missingColor_error() throws IOException, DaoException {
+    try{
+    List<StationsOrderedModel> stations =
+        new StationsOrderedDao("sample/missingField_stations_sequence.csv").loadFile();
+    }catch (RuntimeException e) {
+      assertEquals("Error parsing CSV!", e.getMessage());
+      throw e;
+    }
   }
 }

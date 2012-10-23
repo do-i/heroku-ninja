@@ -12,6 +12,7 @@ import org.junit.Test;
  * Time: 3:02 PM
  * To change this template use File | Settings | File Templates.
  */
+@Deprecated
 public class CtaLStopsModelTest {
   @Test
   public void create_validArg_success() {

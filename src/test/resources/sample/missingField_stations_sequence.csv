@@ -1,0 +1,4 @@
+Color,Destination,Sequence,StopId,StopName
+Blue,Ohare,1,30076,Forest Park (O'Hare-bound)
+Blue,Ohare,2,30189,Harlem (O'Hare-bound)
+Ohare,3,30034,Oak Park (O'Hare-bound)
