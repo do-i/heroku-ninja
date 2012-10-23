@@ -8,7 +8,8 @@ import org.djd.fun.taiga.model.CtaStopsModel;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * Read data from {@link CtaLStopsDao} and write to {@link PostgreCtaStopsDao}
+ * <p/>
  * User: acorn
  * Date: 10/14/12
  * Time: 11:59 PM
