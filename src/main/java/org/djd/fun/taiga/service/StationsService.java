@@ -54,4 +54,21 @@ public class StationsService {
       throw new ServiceException(e);
     }
   }
+
+  public List<StationsOrderedModel> fetchByColor(String color) throws ServiceException {
+    try {
+      return postgreStationsDao.selectByColor(color);
+    } catch (DaoException e) {
+      throw new ServiceException(e);
+    }
+  }
+
+  public List<StationsOrderedModel> fetchByColorAndDestination(String color, String destination)
+      throws ServiceException {
+    try {
+      return postgreStationsDao.selectByColorAndDestination(color, destination);
+    } catch (DaoException e) {
+      throw new ServiceException(e);
+    }
+  }
 }

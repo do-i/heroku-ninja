@@ -11,6 +11,7 @@ import org.djd.fun.taiga.service.StationsService;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -55,6 +56,28 @@ public class StationsResource {
   public List<StationsOrderedModel> fetchAll() {
     try {
       return stationsService.fetch();
+    } catch (ServiceException e) {
+      throw new NotFoundException("Could not find any stations.");
+    }
+  }
+
+  @GET
+  @Path("/{color:\\w+}")
+  public List<StationsOrderedModel> fetchByColor(@PathParam("color") String color) {
+    try {
+      return stationsService.fetchByColor(color);
+    } catch (ServiceException e) {
+      throw new NotFoundException("Could not find any stations.");
+    }
+  }
+
+  @GET
+  @Path("/{color:\\w+}/{destination:\\w+}")
+  public List<StationsOrderedModel> fetchByColorAndDestination(
+      @PathParam("color") String color,
+      @PathParam("destination") String destination) {
+    try {
+      return stationsService.fetchByColorAndDestination(color, destination);
     } catch (ServiceException e) {
       throw new NotFoundException("Could not find any stations.");
     }
