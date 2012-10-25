@@ -43,12 +43,32 @@ public class PostgreStationsDaoTest {
 
   @Test
   public void selectAll_noArg_success() throws DaoException {
-    postgreStationsDao.createTable();
-    List<StationsOrderedModel> stationsOrderedModel = createModels();
-    postgreStationsDao.insertAll(stationsOrderedModel);
+    List<StationsOrderedModel> stationsOrderedModels = seedForSelect();
     List<StationsOrderedModel> ctaStopsModelsFetched = postgreStationsDao.selectAll();
+    assertEquals(2, ctaStopsModelsFetched.size());
+    assertTrue(Objects.equal(stationsOrderedModels, ctaStopsModelsFetched));
+  }
+
+  @Test
+  public void selectByColor_Yellow_success() throws DaoException {
+    List<StationsOrderedModel> stationsOrderedModels = seedForSelect();
+    List<StationsOrderedModel> ctaStopsModelsFetched = postgreStationsDao.selectByColor("Yellow");
     assertEquals(1, ctaStopsModelsFetched.size());
-    assertTrue(Objects.equal(stationsOrderedModel, ctaStopsModelsFetched));
+  }
+
+  @Test
+  public void selectByColorAndDestination_RedHoward_success() throws DaoException {
+    List<StationsOrderedModel> stationsOrderedModels = seedForSelect();
+    List<StationsOrderedModel> ctaStopsModelsFetched =
+        postgreStationsDao.selectByColorAndDestination("Red","Howard");
+    assertEquals(1, ctaStopsModelsFetched.size());
+  }
+
+  private List<StationsOrderedModel> seedForSelect() throws DaoException {
+    postgreStationsDao.createTable();
+    List<StationsOrderedModel> stationsOrderedModels = createModels();
+    postgreStationsDao.insertAll(stationsOrderedModels);
+    return stationsOrderedModels;
   }
 
   private List<StationsOrderedModel> createModels() {
@@ -58,6 +78,12 @@ public class PostgreStationsDaoTest {
     stationsOrderedModel.setSequence(1);
     stationsOrderedModel.setStopId(30089);
     stationsOrderedModel.setStopName("95th/Dan Ryan (95th-bound)");
-    return ImmutableList.of(stationsOrderedModel);
+    StationsOrderedModel stationsOrderedModel2 = new StationsOrderedModel();
+    stationsOrderedModel2.setColor("Red");
+    stationsOrderedModel2.setDestination("Howard");
+    stationsOrderedModel2.setSequence(1);
+    stationsOrderedModel2.setStopId(30088);
+    stationsOrderedModel2.setStopName("95th/Dan Ryan (95th-bound)");
+    return ImmutableList.of(stationsOrderedModel, stationsOrderedModel2);
   }
 }

@@ -17,8 +17,8 @@ import java.sql.SQLException;
  */
 public class ConnectionUtil {
 
-  public static final String DEFAULT_URL = "postgres://linuxpoison:password@localhost:5432/linuxdb";
-  public static final String DATABASE_URL = "HEROKU_POSTGRESQL_ROSE_URL";
+  public static final String DEFAULT_URI = "postgres://linuxpoison:password@localhost:5432/linuxdb";
+  public static final String DATABASE_URI_KEY = "HEROKU_POSTGRESQL_ROSE_URL";
 
   public Connection getConnection() throws DaoException {
     try {
@@ -34,11 +34,11 @@ public class ConnectionUtil {
   }
 
   private URI uri() throws DaoException {
-    String path = System.getenv(DATABASE_URL);
+    String path = System.getenv(DATABASE_URI_KEY);
     if (path == null) {
-      path = System.getProperty(DATABASE_URL);
+      path = System.getProperty(DATABASE_URI_KEY);
       if (path == null) {
-        path = DEFAULT_URL;
+        path = DEFAULT_URI;
       }
     }
     try {

@@ -61,6 +61,13 @@
             <version>2.3</version>
         </dependency>
 
+        <!-- slf4j for dbUnit -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.5.6</version>
+        </dependency>
+
         <!-- jUnit -->
         <dependency>
             <groupId>junit</groupId>
@@ -68,6 +75,14 @@
             <version>4.10</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- dbUnit -->
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.4.9</version>
+        </dependency>
+
     </dependencies>
 
     <build>
