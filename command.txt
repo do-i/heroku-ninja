@@ -28,3 +28,8 @@ curl -si -XPOST -HContent-Type:application/json localhost:8080/v1/logs
 curl -si -XPOST -HContent-Type:application/json localhost:8080/v1/logs/Basic%20Ninja
 curl -si -XPUT -HContent-Type:application/json  localhost:8080/v1/logs/1 -d '{"id":1,"content":"Advanced Ninja"}'
 curl -si -XGET -HContent-Type:application/json  localhost:8080/v1/logs  
+
+# LOCAL STATIONS
+curl -si -XPOST localhost:8080/v1/stations/
+$ su - postgres
+$ psql -d linuxdb

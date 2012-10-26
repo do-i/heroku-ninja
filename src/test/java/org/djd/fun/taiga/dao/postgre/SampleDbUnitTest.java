@@ -25,20 +25,14 @@ import static org.junit.Assert.assertEquals;
  * Time: 12:42 AM
  * To change this template use File | Settings | File Templates.
  */
-public class SampleDbUnitTest {
+public class SampleDbUnitTest extends AbstractDbUnit {
 
-  private static IDatabaseConnection databaseConnection;
-  private static FlatXmlDataFileLoader loader;
   private static PostgreStationsDao dao;
 
   @BeforeClass
-  public static void setUpBeforeClass() throws SQLException, DatabaseUnitException {
-    databaseConnection = new DatabaseConnection(DriverManager.
-        getConnection("jdbc:postgresql://localhost:5432/linuxdb", "linuxpoison", "password"));
-    loader = new FlatXmlDataFileLoader();
+  public static void init() {
     dao = new PostgreStationsDao();
   }
-
   @Test
   public void selectAll() throws DaoException, SQLException, DatabaseUnitException {
     DatabaseOperation.CLEAN_INSERT.execute(databaseConnection, loader.load("/db/full.xml"));
