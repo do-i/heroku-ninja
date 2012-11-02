@@ -50,6 +50,29 @@ public class PostgreCtaStopsDaoTest {
     assertTrue(Objects.equal(ctaStopsModelsOriginal, ctaStopsModelsFetched));
   }
 
+  @Test
+  public void selectParentStopIdByStopId_30089_40450() throws DaoException {
+    postgreCtaStopsDao.createTable();
+    List<CtaStopsModel> ctaStopsModelsOriginal = createModels();
+    postgreCtaStopsDao.insertAll(ctaStopsModelsOriginal);
+    int parentStopId = postgreCtaStopsDao.selectParentStopIdByStopId(30089);
+    assertEquals(40450, parentStopId);
+  }
+
+  @Test(expected = DaoException.class)
+  public void selectParentStopIdByStopId_invalidStopId_error() throws DaoException {
+    postgreCtaStopsDao.createTable();
+    List<CtaStopsModel> ctaStopsModelsOriginal = createModels();
+    postgreCtaStopsDao.insertAll(ctaStopsModelsOriginal);
+    try {
+      postgreCtaStopsDao.selectParentStopIdByStopId(69);
+    } catch (DaoException e) {
+      assertEquals("Invalid stopId 69", e.getMessage());
+      throw e;
+    }
+  }
+
+
   private List<CtaStopsModel> createModels() {
     CtaStopsModel ctaStopsModel = new CtaStopsModel();
     ctaStopsModel.setStopId(30089);

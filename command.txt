@@ -33,3 +33,4 @@ curl -si -XGET -HContent-Type:application/json  localhost:8080/v1/logs
 curl -si -XPOST localhost:8080/v1/stations/
 $ su - postgres
 $ psql -d linuxdb
+\d ... show all tables

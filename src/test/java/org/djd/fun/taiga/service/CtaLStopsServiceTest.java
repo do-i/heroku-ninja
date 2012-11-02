@@ -26,4 +26,13 @@ public class CtaLStopsServiceTest {
     List<CtaStopsModel> ctaStopsModels = ctaLStopsService.fetch();
     assertEquals(4, ctaStopsModels.size());
   }
+
+  @Test
+  public void fetchParentStopId_30089_40450() throws ServiceException {
+    CtaLStopsService ctaLStopsService = new CtaLStopsService(
+        new CtaLStopsDao("sample/small_cta_L_stops.csv"), new PostgreCtaStopsDao());
+    ctaLStopsService.seed();
+    int parentStopId = ctaLStopsService.fetchParentStopId(30089);
+    assertEquals(40450, parentStopId);
+  }
 }

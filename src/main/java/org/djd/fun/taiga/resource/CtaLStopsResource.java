@@ -1,17 +1,15 @@
 package org.djd.fun.taiga.resource;
 
 import com.sun.jersey.api.NotFoundException;
-import org.djd.fun.taiga.dao.DaoException;
-import org.djd.fun.taiga.dao.WayOfDao;
 import org.djd.fun.taiga.model.CtaStopsModel;
 import org.djd.fun.taiga.model.CuteResponse;
-import org.djd.fun.taiga.model.SomeData;
 import org.djd.fun.taiga.service.CtaLStopsService;
 import org.djd.fun.taiga.service.ServiceException;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -22,7 +20,7 @@ import static javax.ws.rs.core.Response.Status.INTERNAL_SERVER_ERROR;
 /**
  * TODO add authentication mechanism to @POST method
  */
-@Path("/admin")
+@Path("/stops")
 @Produces({MediaType.APPLICATION_JSON})
 public class CtaLStopsResource {
 
@@ -57,7 +55,22 @@ public class CtaLStopsResource {
     try {
       return ctaLStopsService.fetch();
     } catch (ServiceException e) {
-      throw new NotFoundException("Could not find any logs.");
+      throw new NotFoundException("Could not find stops.");
+    }
+  }
+
+  /**
+   * TODO: change the response to be json format
+   * @param stopId
+   * @return parentStopId
+   */
+  @GET
+  @Path("/{stopId:\\d+}")
+  public int fetchParentStopId(@PathParam("stopId") int stopId) {
+    try {
+      return ctaLStopsService.fetchParentStopId(stopId);
+    } catch (ServiceException e) {
+      throw new NotFoundException("Could not find requested parentStopId for " + stopId);
     }
   }
 }

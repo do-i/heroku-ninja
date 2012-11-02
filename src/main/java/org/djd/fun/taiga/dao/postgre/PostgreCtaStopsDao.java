@@ -36,6 +36,10 @@ public class PostgreCtaStopsDao {
       "STATION_NAME,STATIONDESC_NAME,PARENTSTOP_ID,ADA,RED,BLUE,BRN,GREEN,PURPLE,PURPLE_EXP," +
       "YELLOW,PINK,ORANGE FROM CTA_L_STOPS";
 
+  private static final String SELECT_PARENTSTOP_ID_BY_STOP_ID =
+      "SELECT PARENTSTOP_ID FROM CTA_L_STOPS WHERE STOP_ID=";
+
+
   private ConnectionUtil connectionUtil;
 
   public PostgreCtaStopsDao() {
@@ -103,13 +107,13 @@ public class PostgreCtaStopsDao {
     }
   }
 
-  public List<CtaStopsModel> selectAll( ) throws DaoException {
-        Connection connection = connectionUtil.getConnection();
+  public List<CtaStopsModel> selectAll() throws DaoException {
+    Connection connection = connectionUtil.getConnection();
     List<CtaStopsModel> ctaStopsModels = Lists.newArrayList();
     try {
       Statement statement = connection.createStatement();
       ResultSet resultSet = statement.executeQuery(SELECT_SQL);
-      while(resultSet.next()) {
+      while (resultSet.next()) {
         CtaStopsModel ctaStopsModel = new CtaStopsModel();
         ctaStopsModel.setStopId(resultSet.getInt("STOP_ID"));
         ctaStopsModel.setDirectionId(resultSet.getString("DIRECTION_ID"));
@@ -132,6 +136,28 @@ public class PostgreCtaStopsDao {
         ctaStopsModels.add(ctaStopsModel);
       }
       return ctaStopsModels;
+    } catch (SQLException e) {
+      throw new DaoException(e);
+    } finally {
+      try {
+        if (connection != null) {
+          connection.close();
+        }
+      } catch (SQLException e) {
+        throw new DaoException(e);
+      }
+    }
+  }
+
+  public int selectParentStopIdByStopId(int stopId) throws DaoException {
+    Connection connection = connectionUtil.getConnection();
+    try {
+      Statement statement = connection.createStatement();
+      ResultSet resultSet = statement.executeQuery(SELECT_PARENTSTOP_ID_BY_STOP_ID + stopId);
+      if (resultSet.next()) {
+        return resultSet.getInt("PARENTSTOP_ID");
+      }
+      throw new DaoException("Invalid stopId " + stopId);
     } catch (SQLException e) {
       throw new DaoException(e);
     } finally {

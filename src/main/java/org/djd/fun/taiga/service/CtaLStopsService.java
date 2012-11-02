@@ -51,4 +51,14 @@ public class CtaLStopsService {
       throw new ServiceException(e);
     }
   }
+
+  public int fetchParentStopId(int stopId) throws ServiceException {
+    try {
+      return postgreCtaStopsDao.selectParentStopIdByStopId(stopId);
+    } catch (DaoException e) {
+      throw new ServiceException(e);
+    }
+  }
+
+
 }
